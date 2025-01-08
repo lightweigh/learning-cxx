@@ -36,12 +36,12 @@ struct Tensor4D {
         
         auto dst = this->data;
         auto src = others.data;
-        T *marks[4][src];
+        T *marks[4];
         for (auto i0 = 0u; i0 < shape[0]; ++i0) {
             if (broadcast[0])   src = marks[0];
             marks[1] = src;
 
-            for (auto i1 = 0u; i1 < shape[2]; ++i1) {
+            for (auto i1 = 0u; i1 < shape[1]; ++i1) {
                 if (broadcast[1])   src = marks[1];
                 marks[2] = src;
 
@@ -51,7 +51,7 @@ struct Tensor4D {
 
                     for (auto i3 = 0u; i3 < shape[3]; ++i3) {
                         if (broadcast[3])   src = marks[3];
-                        *dst++ = *src++;
+                        *dst++ += *src++;
                     }
                 }
             }

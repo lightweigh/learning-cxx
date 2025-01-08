@@ -16,7 +16,7 @@ struct Tensor {
             size *= shape[i];
         }
         data = new T[size];
-        std::memcpy(data, data_, size * sizeof(T));
+        std::memset(data, 0, size * sizeof(T));
     }
     ~Tensor() {
         delete[] data;
@@ -39,7 +39,7 @@ private:
         for (unsigned int i = 0; i < N; ++i) {
             ASSERT(indices[i] < shape[i], "Invalid index");
             // TODO: 计算 index
-            index += index * shape[i] + indices[i];
+            index = index * shape[i] + indices[i];
         }
         return index;
     }
